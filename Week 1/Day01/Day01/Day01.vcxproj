@@ -129,9 +129,12 @@
   <ItemGroup>
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="Day01.cpp" />
+    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Calculator.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Methods.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Text.txt" />

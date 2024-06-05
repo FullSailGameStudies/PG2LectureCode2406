@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include "Calculator.h"
+#include "Methods.h"
+#include "Menu.h"
 
 int AddOne(int localNumber)
 {
@@ -18,10 +20,32 @@ void print(const std::vector<std::string>& names)
     for (std::string name : names)
         std::cout << index++ << ". " << name << "\n";
 }
-
+class Student
+{
+public:
+    Student(std::string name) { name_ = name; }
+    float GetGrade() const { return 95.7F; }
+private:
+    std::string name_;
+};
 
 int main()
 {
+
+    std::vector<Student> pg2;
+    pg2.push_back(Student("Bruce"));
+    pg2.push_back(Student("Clark"));
+    pg2.push_back(Student("Diana"));
+
+    auto iterator = pg2.begin();
+    std::cout << "Grade: " << iterator->GetGrade() << "\n";
+
+    std::string name = "Bob";
+    name[1] = 'i';
+    std::cout << name << "\n";
+    std::cin.get();
+    GlobalMethods();
+    Menu myMenu;
     /*
       Calling a method
         use the methods name.
