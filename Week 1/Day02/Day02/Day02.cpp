@@ -140,7 +140,32 @@ int main()
 
 	std::cin.get();
 
+	//erase ALL failing grades.
+	// failing means < 59.5
+	//print the grades again
+	for (size_t i = 0; i < grades.size();)
+	{
+		if (grades[i] < 59.5)
+		{
+			grades.erase(grades.begin() + i);
+		}
+		else i++;
+	}
+	for (auto iter = grades.begin(); iter != grades.end(); )
+	{
+		if (*iter < 59.5)
+		{
+			iter = grades.erase(iter);
+		}
+		else iter++;
+	}
+	PrintGrades(grades);
 
+
+	int number = 5;
+	//int& n;//can't do
+	int& num = number;
+	num++;
 
 
 	/*
@@ -152,8 +177,13 @@ int main()
 		This is the way you pass by reference and prevent the method from changing the variable.
 	*/
 	std::vector<int> highScores;
-	for (int i = 0; i < 10; ++i)
+	highScores.reserve(10);
+	printInfo(highScores);//size: 0  capacity: 0?
+	for (int i = 0; i < 20; ++i)
+	{
 		highScores.push_back(rand());
+		printInfo(highScores);//size: 1  capacity: 1 or 2??
+	}
 	float avg = average(highScores);
 
 
@@ -172,8 +202,7 @@ int main()
 
 		clear() - removes all elements from the vector
 		erase(position) - removes the element at the position
-		erase(starting position, ending position) - removes a range of elements. the end position is not erased.
-
+		
 	*/
 	print(highScores);
 

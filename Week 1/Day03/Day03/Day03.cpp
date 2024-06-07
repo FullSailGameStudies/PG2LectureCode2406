@@ -4,14 +4,21 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "ThemeSong.h"
 
 std::string postFix(std::string fileName, int postFixNumber = 1) //postFixNumber is optional
 {
     return fileName + "_" + std::to_string(postFixNumber);
 }
 
+
+
 int main()
 {
+
+    ThemeSong themes;
+    themes.BatTheme();
+    themes.BatTheme(255);
 
     /*
         ╔═══════════════════════════════╗
@@ -39,10 +46,13 @@ int main()
     /*
         CHALLENGE 1:
 
-            Write a method called batTheme.
-            Add an optional parameter to determine how many "na" are printed. The default value should be 13.
             
-            If the calling code does not pass a value for the parameter, print "na na na na na na na na na na na na na Batman".
+            Add a method called batTheme to the Themesong class.
+            Add an default parameter to determine how many "na" are printed. 
+            The default value should be 13.
+            
+            If the calling code does not pass a value for the parameter, 
+            print "na na na na na na na na na na na na na Batman".
             If a value is passed, print the number of "na" equal to the value.
             EX: if 6 is passed, print "na na na na na na Batman"
 
@@ -84,8 +94,10 @@ int main()
     /*
         CHALLENGE 2:
 
-            Copy the JLA vector and add some villains to the new vector. Don't modify the original JLA vector.
+            Copy the JLA vector and add some villains to the new vector. 
+            Don't modify the original JLA vector.
     */
     std::vector<std::string> JLA = { "Batman", "Wonder Woman", "Superman", "Flash" };
+    auto jla2(JLA);
 
 }

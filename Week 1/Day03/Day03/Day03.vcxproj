@@ -128,6 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Day03.cpp" />
+    <ClCompile Include="ThemeSong.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ThemeSong.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
