@@ -5,15 +5,63 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iomanip>
 
 enum class Weapon
 {
     Sword, Axe, Spear, Mace
 };
 
+/// <summary>
+/// Linearly searches a vector for an item.
+/// </summary>
+/// <param name="searchVector">what am I searching in</param>
+/// <param name="searchNumber">what am I searching for</param>
+/// <returns></returns>
+int LinearSearch(
+    /* what am I searching in*/
+    const std::vector<int>& searchVector,
+    /* what am I searching for*/
+    int searchNumber
+)
+{
+    int foundIndex = -1;//not found
+    for (size_t i = 0; i < searchVector.size(); i++)
+    {
+        if (searchNumber == searchVector.at(i))
+        {
+            foundIndex = i;
+            break;
+        }
+    }
+    return foundIndex;
+}
 
+void PrintGrades(const std::map<std::string, double>& course)
+{
+    std::cout << "\n\nPG2 2406 (June)\n";
+    for (auto& [student,grade] : course)
+    {
+        std::cout << std::setw(13) << std::left << student;
+        std::cout << std::setw(7) << std::right << grade;
+        std::cout << "\n";
+    }
+}
+
+//typedef std::map<std::string, float>::iterator menuIter;
 int main()
 {
+    std::vector<int> nums{ 1,2,3,4,5 };
+    int number = 10;
+    int findIndex = LinearSearch(nums, number);
+    if (findIndex == -1)
+    {
+        std::cout << number << " was not found.\n";
+    }
+    else
+    {
+        std::cout << number << " was found at index " << findIndex << "\n";
+    }
     /*
         ╔═════════╗
         ║Searching║
@@ -57,10 +105,72 @@ int main()
 
         [  Adding items to a map  ]
 
-        There are 2 ways to add items to a Dictionaruy:
+        There are 2 ways to add items to a Map:
         1) using the insert method.
-        3) using [key] = value
+        2) using [key] = value
     */
+    
+    std::map<std::string, float> menu;
+    menu["Catfish"] = 12.99F;
+    std::string item = "Carp";
+    menu[item] = 5.99F;
+    menu[item] = 7.99F;//?? overwrites.
+
+    std::pair<std::string, float> itemToInsert =
+        std::make_pair("Salmon", 15.99F);
+    std::pair<std::map<std::string,float>::iterator,bool> wasInserted = 
+        menu.insert(itemToInsert);//does NOT overwrite
+    //pair: first, second
+    if (wasInserted.second)
+        std::cout << "The item was inserted.\n";
+    else
+        std::cout << "The item was already in the map.\n";
+    std::cout << "The item costs " << wasInserted.first->second << "\n";
+
+    size_t size;
+    std::cout << "\nPG2 Cafe\n";
+    for (auto iter = menu.begin(); iter != menu.end(); iter++)
+    {
+        std::string name = iter->first;//key
+        float price = iter->second;//value
+        std::cout << std::setw(10) << std::left << name << " " 
+            << std::setw(7) << std::right << price << "\n";
+    }
+    std::cout << "\nPG2 Cafe\n";
+    for (auto& item : menu)
+    {
+        std::string name = item.first;
+        float price = item.second;
+        std::cout << std::setw(10) << std::left << name << " "
+            << std::setw(7) << std::right << price << "\n";
+    }
+    std::cout << "\nPG2 Cafe\n";
+    for (const auto& [menuItem,menuPrice] : menu)
+    {
+        //menuPrice += 5;
+        std::cout << std::setw(10) << std::left << menuItem << " "
+            << std::setw(7) << std::right << menuPrice << "\n";
+    }
+
+    std::string itemToFind = "nuggies";
+    //find returns...
+    //  the end() if NOT found
+    //  the iterator to the (key,value) pair if found
+    std::cout << menu[itemToFind] << "\n";//will add the item!!
+    auto foundItem = menu.find(itemToFind);
+    if (foundItem != menu.end())
+    {
+        float price = foundItem->second;
+        //menu[itemToFind] = price * 1.5;
+        foundItem->second *= 1.5;
+        std::cout << itemToFind << " used to costs " << price << "\n";
+        std::cout << "Now it costs " << foundItem->second << "!! Thanks Putin!\n";
+
+    }
+    else
+        std::cout << itemToFind << " is not on the menu. Try McDonald's!\n";
+
+
     std::map<Weapon, int> dorasBackpack;//will store the counts of each kind of weapon
 
     //returns an iterator and a bool. 
@@ -78,14 +188,50 @@ int main()
     /*
         CHALLENGE 2:
 
-            Create a map that stores names (string) and grades. Call the variable grades.
+            Create a map that stores names (string) and grades. 
+            Call the variable grades.
             Add students and grades to your map.
 
     */
 
+    srand(time(NULL));
+    std::vector<std::string> students{
+    "Dylan", "Kyle", "Adrian", "Luke", "Luis",
+    "Cy", "Ryan", "Harrison", "Gareth", "Sam",
+    "Amirah", "Breanne", "Harry", "Jeremy",
+    "Lor", "Patrick", "Pedro", "Quilliah",
+    "Rebekah", "Roxythe", "Tyrone" };
+    std::map<std::string, double> grades;
+    for (auto& student : students)
+    {
+        //grades[student] = rand() % 10001 / 100.0;
 
+        //or use the insert method
+        double grade = rand() % 10001 / 100.0;
+        auto studentInserted = grades.insert(std::make_pair(student, grade));
+        if (!studentInserted.second)
+        {
+            std::cout << student << " is already in the course.\n";
+        }
+    }
 
+    
+    do
+    {
+        PrintGrades(grades);
 
+        std::cout << "\nStudent to find: ";
+        std::string studentName;
+        std::getline(std::cin, studentName);
+        if (studentName.size() == 0) break;
+        studentName[0] = std::toupper(studentName[0]);
+        auto foundStudent = grades.find(studentName);
+        if (foundStudent == grades.end())
+            std::cout << studentName << " is not in the course.\n";
+        else
+            std::cout << studentName << " has a grade of " << foundStudent->second << "\n";
+
+    } while (true);
 
 
     /*
