@@ -9,9 +9,19 @@
 
 enum class Weapon
 {
-    Sword, Axe, Spear, Mace
+    Sword=10, Axe=20, Spear=30, Mace=40
 };
 
+
+void Print(const std::map<std::string, double>& course)
+{
+    std::cout << "\n____DCU Grades____\n";
+    for (auto& [student,grade] : course)
+    {
+        std::cout << std::setw(10) << std::left << student;
+        std::cout << std::setw(3) << std::right << grade << "\n";
+    }
+}
 
 int main()
 {
@@ -27,20 +37,20 @@ int main()
         erase(key) -- returns the # of items removed
 
     */
-    std::map<Weapon, int> backpack;
-    auto inserted = backpack.insert(std::make_pair(Weapon::Sword, 5));
-    backpack[Weapon::Axe] = 3;
+    std::map<Weapon, int> dorasBackpack;
+    auto inserted = dorasBackpack.insert(std::make_pair(Weapon::Sword, 5));
+    dorasBackpack[Weapon::Axe] = 3;
 
-    size_t numberRemoved = backpack.erase(Weapon::Sword);
+    size_t numberRemoved = dorasBackpack.erase(Weapon::Sword);
     if (numberRemoved > 0)
         std::cout << "The Swords were removed.\n";
     else
         std::cout << "Sword was not found in the map.\n";
 
-    std::map<Weapon, int>::iterator found = backpack.find(Weapon::Axe);
-    if (found != backpack.end())
+    std::map<Weapon, int>::iterator found = dorasBackpack.find(Weapon::Axe);
+    if (found != dorasBackpack.end())
     {
-        backpack.erase(found);
+        auto nextIterator = dorasBackpack.erase(found);
         std::cout << "The Axes were removed.\n";
     }
     else
@@ -65,12 +75,32 @@ int main()
 
     */
     srand((unsigned int)time(NULL));
-    std::map<std::string, double> grades;
-    grades["Bruce"] = rand() % 101;
-    grades["Dick"] = rand() % 101;
-    grades["Diana"] = rand() % 101;
-    grades["Alfred"] = rand() % 101;
-    grades["Clark"] = rand() % 101;
-    grades["Arthur"] = rand() % 101;
-    grades["Barry"] = rand() % 101;
+    std::map<std::string, double> DCU;
+    DCU["Bruce"] = rand() % 101;
+    DCU["Dick"] = rand() % 101;
+    DCU["Diana"] = rand() % 101;
+    DCU["Alfred"] = rand() % 101;
+    DCU["Clark"] = rand() % 101;
+    DCU["Arthur"] = rand() % 101;
+    DCU["Barry"] = rand() % 101;
+
+    do
+    {
+        Print(DCU);
+
+        std::cout << "Student to drop? ";
+        std::string student;
+        std::getline(std::cin, student);
+        if (student.empty()) break;
+
+        auto foundHero = DCU.find(student);
+        if (foundHero == DCU.end())
+            std::cout << student << " was not found. Try again.\n";
+        else
+        {
+            std::cout << "Dropping " << student << ". Final grade was " << foundHero->second << "\n";
+            DCU.erase(foundHero);
+        }
+
+    } while (true);
 }
