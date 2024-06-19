@@ -6,10 +6,12 @@
 #include "Inheritance.h"
 #include "Polymorphism.h"
 #include "Car.h"
+#include "FlyingCar.h"
 
 
 int main()
 {
+	FlyingCar martysRide(1985,"DeLorean", "DMC-12", 2000, 0);
 	/*
         ╔═══════════════╗
         ║  Inheritance  ║
