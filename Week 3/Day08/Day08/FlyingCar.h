@@ -12,6 +12,7 @@ public:
 		//REUSE, not duplicate
 		//mModelYear = year;
 	}
+	std::string vehicleInformation() override;
 
 	float MaxAltitude() const { return maxAltitude_; }
 	float StallSpeed() const { return stallSpeed_; }

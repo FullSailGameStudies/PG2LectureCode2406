@@ -7,11 +7,16 @@
 #include "Polymorphism.h"
 #include "Car.h"
 #include "FlyingCar.h"
+#include "Pistol.h"
+#include "SpaceCar.h"
 
 
 int main()
 {
 	FlyingCar martysRide(1985,"DeLorean", "DMC-12", 2000, 0);
+	SpaceCar lukesRide(1985,"DeLorean", "DMC-13", 2000, 0);
+	std::cout << martysRide.vehicleInformation() << "\n";
+	std::cout << lukesRide.vehicleInformation() << "\n";
 	/*
         ╔═══════════════╗
         ║  Inheritance  ║
@@ -54,6 +59,10 @@ int main()
             Add a constructor that calls the base constructor
 	
 	*/
+	Pistol pew1(100, 50, 10, 2);
+	Pistol pew2(100, 50, 10, 7);
+	//pew2 = pew1 + pew2;
+
 
 
 
