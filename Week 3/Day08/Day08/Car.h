@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Car
 {
@@ -9,8 +10,18 @@ public:
 
 	Car(int year, std::string make, std::string model)
 		: mModelYear(year), mMake(make), mModel(model), mFuelLevel(0), mMaxFuelLevel(15)
-	{	}
+	{
+		numberOfCarsMade++;
+	}
 	virtual std::string vehicleInformation();
+
+	//there is NO 'this'
+	//static methods can ONLY access static data/methods
+	static void VehicleReport()
+	{
+		std::cout << "We've made " << numberOfCarsMade << "!\n";
+		//std::cout << std::to_string(mModelYear) + " " + mMake + " " + mModel;
+	}
 
 	void refuel()
 	{
@@ -31,6 +42,8 @@ public:
 			mModelYear = newModelYear;
 		}
 	}
+public:
+	static int numberOfCarsMade;//static means shared by all Car instances
 
 protected:
 	int mModelYear;

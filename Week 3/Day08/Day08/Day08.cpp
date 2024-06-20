@@ -11,12 +11,26 @@
 #include "SpaceCar.h"
 
 
+void Printer()
+{
+	static int i = 0;
+	std::cout << i++ << " ";
+}
+
 int main()
 {
+	for (size_t j = 0; j < 10; j++)
+	{
+		Printer();//0 1 2 3 4 5 6...9
+	}
 	FlyingCar martysRide(1985,"DeLorean", "DMC-12", 2000, 0);
 	SpaceCar lukesRide(1985,"DeLorean", "DMC-13", 2000, 0);
 	std::cout << martysRide.vehicleInformation() << "\n";
 	std::cout << lukesRide.vehicleInformation() << "\n";
+
+	//martysRide.vehicleInformation(&martysRide);
+	//lukesRide.vehicleInformation(&lukesRide);
+	Car::VehicleReport();
 	/*
         ╔═══════════════╗
         ║  Inheritance  ║
