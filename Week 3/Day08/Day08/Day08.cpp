@@ -9,6 +9,7 @@
 #include "FlyingCar.h"
 #include "Pistol.h"
 #include "SpaceCar.h"
+#include <vector>
 
 
 void Printer()
@@ -23,21 +24,25 @@ int main()
 	{
 		Printer();//0 1 2 3 4 5 6...9
 	}
-	FlyingCar martysRide(1985,"DeLorean", "DMC-12", 2000, 0);
-	SpaceCar lukesRide(1985,"DeLorean", "DMC-13", 2000, 0);
+	FlyingCar martysRide(1985, "DeLorean", "DMC-12", 2000, 0);
+	SpaceCar lukesRide(1985, "DeLorean", "DMC-13", 2000, 0);
 	std::cout << martysRide.vehicleInformation() << "\n";
 	std::cout << lukesRide.vehicleInformation() << "\n";
+
+	//myRide is a separate object from martysRide
+	Car myRide = martysRide;//??? COPIES only the Car parts of martysRide to myRide.
+	myRide.vehicleInformation();//will call the Car's version
 
 	//martysRide.vehicleInformation(&martysRide);
 	//lukesRide.vehicleInformation(&lukesRide);
 	Car::VehicleReport();
 	/*
-        ╔═══════════════╗
-        ║  Inheritance  ║
-        ╚═══════════════╝
+		╔═══════════════╗
+		║  Inheritance  ║
+		╚═══════════════╝
 
 								╔═════════╗     ╔══════════╗
-				         class  ║SomeClass║  :  ║OtherClass║
+						 class  ║SomeClass║  :  ║OtherClass║
 								╚═════════╝     ╚══════════╝
 									 │                │
 									 └──┐             └──┐
@@ -50,7 +55,7 @@ int main()
 				public inheritance:
 				protected inheritance:
 				private inheritance: (default if not specified)
-	
+
 
 
 				CONSTRUCTORS: the derived constructor must call a base constructor
@@ -58,20 +63,20 @@ int main()
 
 
 			Lecture Code: add a FlyingCar class that derives from Car
-             
-    */
+
+	*/
 
 
 
 	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
 
-            add a new class, Pistol, that derives from Weapon.
-            Pistol should have fields with getters/setters for rounds and magCapacity.
-            Add a constructor that calls the base constructor
-	
+			add a new class, Pistol, that derives from Weapon.
+			Pistol should have fields with getters/setters for rounds and magCapacity.
+			Add a constructor that calls the base constructor
+
 	*/
 	Pistol pew1(100, 50, 10, 2);
 	Pistol pew2(100, 50, 10, 7);
@@ -84,9 +89,9 @@ int main()
 
 
 	/*
-        ╔═════════════════════════════╗
-        ║  COMPILE-TIME Polymorphism  ║
-        ╚═════════════════════════════╝
+		╔═════════════════════════════╗
+		║  COMPILE-TIME Polymorphism  ║
+		╚═════════════════════════════╝
 
 		Method Overloading:
 			- changing the number of parameters
@@ -99,9 +104,9 @@ int main()
 
 
 	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
 
 			Add an OVERLOAD of the calcDamage method in the Weapon class.
 			The overload should take an int parameter called modifier
@@ -114,9 +119,9 @@ int main()
 
 
 	/*
-        ╔═════════════════════════════╗
-        ║  COMPILE-TIME Polymorphism  ║
-        ╚═════════════════════════════╝
+		╔═════════════════════════════╗
+		║  COMPILE-TIME Polymorphism  ║
+		╚═════════════════════════════╝
 
 		Operator Overloading
 
@@ -127,9 +132,9 @@ int main()
 
 
 	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
 
 		overload the + in the Pistol class to add 2 pistols
 			- it sets the magCapacity to the max of the 2 pistols
@@ -142,9 +147,9 @@ int main()
 
 
 	/*
-        ╔════════════════════════╗
-        ║  RUNTIME Polymorphism  ║
-        ╚════════════════════════╝
+		╔════════════════════════╗
+		║  RUNTIME Polymorphism  ║
+		╚════════════════════════╝
 
 		╔═════════════╗
 		║ OVERRIDING  ║ - changing the behavior of a base method
@@ -171,9 +176,9 @@ int main()
 
 
 	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
 
 			Override Weapon's showMe method in the Pistol class.
 			In Pistol's version, call the base version then print out the rounds and magCapacity
@@ -193,19 +198,19 @@ int main()
 		Using unique pointers w/ overridden methods
 
 
-        ╔═══════════╗ 
-        ║ UPCASTING ║ - casting a derived type variable to a base type variable
-        ╚═══════════╝ 
+		╔═══════════╗
+		║ UPCASTING ║ - casting a derived type variable to a base type variable
+		╚═══════════╝
 
-        This is ALWAYS safe.
+		This is ALWAYS safe.
 
-	
+
 		To maintain the original object, we need a pointer though. If not, then we're just calling the copy constructor of the base class and lose all the info of the derived.
 
 		Unique pointers owns and manages an object through a pointer.
 		std::unique_ptr<derived> pDerived = std::make_unique<derived>("Gotham", 5);
 
-		
+
 		You can upcast by using the base type in the unique_ptr.
 		std::unique_ptr<base> pBase = std::make_unique<derived>("Gotham", 5);
 		  OR
@@ -213,10 +218,71 @@ int main()
 
 
 
-		Lecture Code: 
+		Lecture Code:
 			use make_unique and unique_ptr to create a derived instance
 			use std::move to upcast it to a base
 	*/
+	{
+		int nummie = 5;//stack memory
+		int* pNummie = &nummie;
+		int& rNummie = nummie;
+
+		//dynamic memory
+		// = new then you're working in the heap
+		//developers must clean up dynamic memory with "delete"
+		int* pNumber = new int(5);//heap memory
+		int* pNum2 = pNumber;//copies the memory address to pNum2
+		delete pNumber;//frees the heap memory to be used for something else
+		pNumber = nullptr;
+		if (pNumber != nullptr) {}
+
+		derived* pder1 = new derived("Gotham", 1);
+		pder1->print();
+		delete pder1;
+
+		auto pDerived = std::make_unique<derived>("Gotham", 1);
+		pDerived->print();
+	}//pDerived is automatically deleted
+
+	/*
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
+
+			Try to create some unique_ptrs to FlyingCar
+
+
+	*/
+
+
+	std::unique_ptr<FlyingCar> pFlying =
+		std::make_unique<FlyingCar>(1985, "DeLorean", "DMC-12", 2000, 0);
+	std::unique_ptr<Car> uCurrentRide = std::move(pFlying);//moves the ownership of the memory
+	std::cout << "upcasting test: " << uCurrentRide->vehicleInformation();
+	if (pFlying != nullptr)
+		pFlying->vehicleInformation();
+
+	std::vector<std::unique_ptr<Car>> garage;
+	garage.push_back(std::move(uCurrentRide));
+	garage.push_back(std::make_unique<SpaceCar>(1985, "DeLorean", "DMC-12", 2000, 0));
+	garage.push_back(std::make_unique<Car>(1988, "Ford", "Mustang GT"));
+	std::cout << "\n\nJay's Garage\n----------------\n";
+	for (auto& car : garage)
+	{
+		std::cout << car->vehicleInformation() << "\n";
+	}
+	std::cout << "----------------\n";
+
+	//UPCASTING. cast from a derived type to a base type
+	//this is ALWAYS safe. why? b/c the derived is always a kind-of base
+	FlyingCar* flCar = new FlyingCar(1985, "DeLorean", "DMC-12", 2000, 0);
+	Car* myCurrentRide = flCar;//?? it points to the same object
+	myCurrentRide->refuel();
+	myCurrentRide->vehicleInformation();//which one gets called? Car's or FlyingCar's?
+	//it will call the FlyingCar's version b/c FlyingCar OVERRODE the Car's version
+
+	//SpaceCar lukesRide(1985, "DeLorean", "DMC-13", 2000, 0);
+
 	derived der1("Gotham", 1);
 	base base1 = der1; //calls the assignment operator of base therefore you lose all the derived parts. base1 is JUST a base object.
 	der1.print();
@@ -226,9 +292,9 @@ int main()
 
 
 	/*
-        ╔*************╗
-        ║  CHALLENGE  ║
-        ╚*************╝
+		╔*************╗
+		║  CHALLENGE  ║
+		╚*************╝
 
 		Create a vector that holds unique pointers of Weapon.
 		Create instances of Weapon and Pistol using make_unique.

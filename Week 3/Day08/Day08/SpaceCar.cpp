@@ -2,5 +2,5 @@
 
 std::string SpaceCar::vehicleInformation()
 {
-    return std::string();
+    return Car::vehicleInformation() + "\nTo infinity and beyond!";
 }
