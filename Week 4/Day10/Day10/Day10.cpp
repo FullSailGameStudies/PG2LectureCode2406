@@ -48,7 +48,7 @@ int main()
 
         Lecture code: set a filePath variable, open an output file, write some csv data to it
     */
-    std::string path = "C:\\temp\\2406\\";
+    std::string path = "";// "C:\\temp\\2406\\";
     std::string fileName = "Sample.csv";
     std::string fullPath = path + fileName;
 
@@ -84,6 +84,48 @@ int main()
 
         Lecture code: using the filePath variable, open an input file, use getline to read a line, print the line
     */
+
+    std::ifstream inFile(fullPath);
+    if (inFile.is_open())
+    {
+        std::string line;
+        std::getline(inFile, line);//reading until \n
+        std::cout << line << "\n";
+
+        //getline works with streams
+        std::stringstream lineStream(line);
+        std::string data;
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+        std::getline(lineStream, data, delimiter);
+        int iData = std::stoi(data);
+        std::cout << iData << "\n";
+        std::getline(lineStream, data, delimiter);
+        double dData = std::stod(data);
+        std::cout << dData << "\n";
+        std::getline(lineStream, data, delimiter);
+        bool bData = std::stoi(data) != 0;
+        std::cout << bData << "\n";
+        //???
+        if (lineStream.eof())
+            std::cout << "DONE READING\n";
+        else
+        {
+            std::string endData;
+            std::getline(lineStream, endData, delimiter);
+            std::cout << endData << "\n";
+        }
+
+        while (std::getline(lineStream, data, delimiter))
+        {
+
+        }
+    }
+    else
+    {
+        std::cout << fullPath << " does not exists.\n";
+    }
+    inFile.close();
 
 
     /*
